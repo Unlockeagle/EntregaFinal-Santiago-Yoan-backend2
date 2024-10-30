@@ -5,14 +5,12 @@ class CartDao {
         const cart = new CartModel({ products: [] });
         return await cart.save();
     }
-    async saveTo(obj) {
-        return await obj.save();
-    }
+
     async find() {
         return await CartModel.find();
     }
     async findById(cid) {
-        return await CartModel.findById(cid);
+        return await CartModel.findById(cid).populate("products.product").lean();
     }
     async findOne(query) {
         return await CartModel.findOne(query);

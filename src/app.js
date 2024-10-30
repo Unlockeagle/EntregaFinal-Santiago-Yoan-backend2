@@ -3,7 +3,7 @@ import configObject from "./config/config.js";
 import "../src/dataBase.js";
 import ProductRouter from "./routers/product.router.js";
 import CartRouter from "./routers/cart.router.js";
-import SessionRouter from "./routers/session.router.js"
+import UserRouter from "./routers/user.router.js"
 import ViewRouter from "./routers/view.router.js"
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -16,6 +16,7 @@ const PORT = configObject.puerto || 8080;
 // Midleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("./src/public"))
 app.use(cookieParser());
 initializePassport();
 app.use(passport.initialize());
@@ -29,7 +30,7 @@ app.set('views', './src/views');
 // Rutas
 app.use("/", ProductRouter);
 app.use("/", CartRouter);
-app.use("/", SessionRouter)
+app.use("/", UserRouter)
 app.use("/", ViewRouter)
 
 // Listen

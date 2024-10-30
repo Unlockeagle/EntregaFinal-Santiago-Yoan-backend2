@@ -13,24 +13,25 @@ class CartService {
     async deleteCart(cid) {
         return await cartRepository.deleteCart(cid);
     }
-    async addProductToCart(cid, pid, quantity) {
+    async addProductToCart(cid, pid, quantity = 1) {
         // para añadir productos al carrito
 
         const cart = await cartRepository.getCartById(cid);
+
         if (!cart) {
             throw new Error("Carrito no existe");
         }
-        const product = cart.products.find((item) => item.product.equals(pid));
+
+        const product = await cart.products.find((item) => item.product._id.toString() === pid.toString());
+
         if (!product) {
             cart.products.push({ product: pid, quantity });
-
-            cartRepository.saveTo(cart);
+            cartRepository.updateCart(cid, cart);
         } else {
             product.quantity += quantity;
-            cartRepository.saveTo(cart);
+            cartRepository.updateCart(cid, cart);
         }
 
-        
         return cart;
     }
     async emptyCart(cid) {
@@ -51,11 +52,10 @@ class CartService {
         }
         return product;
     }
-    async deleteProductFromCart(cid, pid){
+    async deleteProductFromCart(cid, pid) {
         const cart = await cartRepository.getCartById(cid);
         const product = cart.products.find((item) => item.product.equals(pid));
         console.log(product);
-        
     }
 }
 

@@ -28,28 +28,33 @@ class SessionController {
             first_name: user.first_name,
             last_name: user.last_name,
             role: user.role,
-        })
+        });
         res.cookie("coderCookieToken", token, {
             maxAge: 3600000,
             httpOnly: true,
-        }).redirect("/current")
+        }).redirect("/api/session/current");
         //res.send({ message: "Login exitoso", user: user });
     }
-    // async current(req, res) {        
-    //     return res.render("profile", { user: req.user });
-    // }
+  
 
-    // Usamos passportCall
-    async current(req, res) {        
-        return res.render("profile", { user: req.user });
+    async current(req, res) {
+        
+        if (req.user) {
+            const user = req.user;
+            if (user.role === "user") {
+                 res.render("profile", { user });
+            }else if(user.role === "admin"){
+                 res.render("realtimeproducts", {user})
+            } else {
+                res.send("No autorizado por el currrents");
+            }
+        }
     }
 
-    async logout(req, res){
-        res.clearCookie("coderCookieToken")
-        return res.redirect("/login")
-
+    async logout(req, res) {
+        res.clearCookie("coderCookieToken");
+        return res.redirect("/login");
     }
-
 }
 
 export default new SessionController();

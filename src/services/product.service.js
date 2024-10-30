@@ -17,7 +17,7 @@ class ProductService {
         let page = parseInt(query.page, 10) || 1;
         let sort = query.sort;
 
-        const arrayProducts = await productRepository.getProducts(fiterCategoryDto(category), paginateOptionsDto(limit, page, sort));
+        const arrayProducts = await productRepository.getProducts( fiterCategoryDto(category), paginateOptionsDto(limit, page, sort));
         
         return arrayProducts
     }
