@@ -1,3 +1,4 @@
+import ticketRepository from "../repositories/ticket.repository.js";
 import cartService from "../services/cart.service.js";
 
 class CartController {
@@ -68,15 +69,28 @@ class CartController {
             res.status(400).send({ messsage: "Error en el servidor al actualizar quantity en carrito", error: error.message });
         }
     }
-    async deleteProductFromCart(req, res){
+    async deleteProductFromCart(req, res) {
         try {
-           const cid = req.params.cid
-           const pid = req.body.product
-           await cartService.deleteProductFromCart(cid, pid)
-           res.status(201).send({message: "Producto eliminado exitosamente del carrito"})
+            const cid = req.params.cid;
+            const pid = req.body.product;
+
+            const deleted = await cartService.deleteProductFromCart(cid, pid);
+            res.status(201).send({ message: "Producto eliminado exitosamente del carrito", deleted: deleted });
         } catch (error) {
             res.status(400).send({ messsage: "Error en el servidor al eliminar producto del carrito", error: error.message });
         }
+    }
+    async finalizePurchase(req, res) {
+        const cid = req.params.cid;
+
+        const ticket = await cartService.finalizePurchase(cid);
+        ticket.purchaser = req.user.email
+        const ticketFinal = await ticketRepository.create(ticket);
+        console.log(ticketFinal);
+        console.log(req.user);
+        
+
+        res.send({ message: "Nueva orden recibida", ticket: ticketFinal });
     }
 }
 

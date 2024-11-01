@@ -1,87 +1,15 @@
 <section class="container flex flex-col m-auto justify-center">
 
 
-    <section class="py-24 relative">
-        <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+    <section class="py-24 md:px-5 relative">
+        <div class="w-full max-w-7xl lg-6 mx-auto">
 
             <h2 class="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">Shopping Cart 🛒
-            </h2>
-            <div class="hidden lg:grid grid-cols-2 py-6">
-                <div class="font-normal text-xl leading-8 text-gray-500">Product</div>
-                <p class="font-normal text-xl leading-8 text-gray-500 flex items-center justify-between">
-                    <span class="w-full max-w-[200px] text-center">Delivery Charge</span>
-                    <span class="w-full max-w-[260px] text-center">Quantity</span>
-                    <span class="w-full max-w-[200px] text-center">Total</span>
-                </p>
-            </div>
-          <h1>{{cart.product.title}}</h1>
-            {{#each cart.products }}
-            <div class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6">
-                <div
-                    class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
-                    <div class="img-box"><img alt="ecommerce" class="object-cover object-center w-full h-full block"
-                            src="https://dummyimage.com/428x268"></div>
-                    <div class="pro-data w-full max-w-sm ">
-                        <h5 class="font-semibold text-xl leading-8 text-black max-[550px]:text-center">
-                            {{this.product.title}}
-                        </h5>
+                <div class="w-full flex justify-end">
 
-                        <p
-                            class="font-normal text-lg leading-8 text-gray-500 my-2 min-[550px]:my-3 max-[550px]:text-center">
-                            {{this.product.category}}</p>
-                            <div class="flex font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">
 
-                            <span class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">$</span>
-                        <h6 id="price" class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">
-                            {{this.product.price}}</h6>
-                            </div>
-                    </div>
-
-                </div>
-                <div
-                    class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
-                    <span>$</span>
-                    <h6 id="delivery"
-                        class="font-manrope font-bold text-2xl leading-9 text-black w-full max-w-[176px] text-center">
-                        15.00 <span class="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">(Delivery
-                            Charge)</span></h6>
-                    <div class="flex items-center w-full mx-auto justify-center">
-                        <button
-                            class="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
-                            <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
-                                xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
-                                fill="none">
-                                <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
-                                <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
-                                    stroke-linecap="round" />
-                                <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
-                                    stroke-linecap="round" />
-                            </svg>
-                        </button>
-                        <input id="quantity" value={{this.quantity}} type="text"
-                            class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[118px] min-w-[80px] placeholder:text-gray-900 py-[15px] text-center bg-transparent"
-                            placeholder={{this.quantity}}>
-                        <button
-                            class="group rounded-r-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
-                            <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
-                                xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
-                                fill="none">
-                                <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6"
-                                    stroke-linecap="round" />
-                                <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
-                                    stroke-linecap="round" />
-                                <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
-                                    stroke-linecap="round" />
-                            </svg>
-                        </button>
-                    </div>
-                    <span>$</span>
-                    <h6 id="total"
-                        class="text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
-                        
-                    </h6>
-                    <p class=" productIdDelete">{{this._id}}</p>
-                    <button class="deleteBtn">
+                    <button id="emptyCart"
+                        class="inline-flex items-center gap-4 rounded-md focus:outline-none hover:text-red-600 text-base text-gray-500 mt-4 md:mt-0">Remove all
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             fill="#000000" width="24px" height="24px" viewBox="0 0 512 512" id="_x30_1" version="1.1"
                             xml:space="preserve">
@@ -100,12 +28,118 @@
                             </g>
 
                         </svg>
+                    </button>
 
+                </div>
+        </div>
+        </h2>
+        <div class="hidden lg:grid grid-cols-2 py-6">
+            <div class="font-normal text-xl leading-8 text-gray-500">Product</div>
+            <p class="font-normal text-xl leading-8 text-gray-500 flex items-center justify-between">
+                <span class="w-full max-w-[200px] text-center">Delivery Charge</span>
+                <span class="w-full max-w-[260px] text-center">Quantity</span>
+                <span class="w-full max-w-[200px] text-center">Total</span>
+            </p>
+        </div>
+        <h1>{{cart.product.title}}</h1>
+        {{#each cart.products }}
+        <div class="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6">
+            <div
+                class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
+                <div class="img-box"><img alt="ecommerce" class="object-cover object-center w-full h-full block"
+                        src="https://dummyimage.com/428x268"></div>
+                <div class="pro-data w-full max-w-sm ">
+                    <h5 class="font-semibold text-xl leading-8 text-black max-[550px]:text-center">
+                        {{this.product.title}}
+                    </h5>
+
+                    <p
+                        class="font-normal text-lg leading-8 text-gray-500 my-2 min-[550px]:my-3 max-[550px]:text-center">
+                        {{this.product.category}}</p>
+                    <div class="flex font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">
+
+                        <span class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">Price:
+                            $</span>
+                        <h6 id="price" class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">
+                            {{this.product.price}}</h6>
+                    </div>
+                </div>
+
+            </div>
+            <div class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
+                <span>$</span>
+                <h6 id="delivery"
+                    class="font-manrope font-bold text-2xl leading-9 text-black w-full max-w-[176px] text-center">
+                    15.00 <span class="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">(Delivery
+                        Charge)</span></h6>
+                <div class="flex items-center w-full mx-auto justify-center">
+                    <button
+                        class="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+                        <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
+                            <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
+                                stroke-linecap="round" />
+                            <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                    <input id="quantity" value={{this.quantity}} type="text"
+                        class="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[118px] min-w-[80px] placeholder:text-gray-900 py-[15px] text-center bg-transparent"
+                        placeholder={{this.quantity}}>
+                    <button
+                        class="group rounded-r-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+                        <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
+                            <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
+                                stroke-linecap="round" />
+                            <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6"
+                                stroke-linecap="round" />
+                        </svg>
                     </button>
                 </div>
+                <span>$</span>
+                <h6 id="total"
+                    class="text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
+
+                </h6>
+                <p class="hidden productIdDelete">{{this._id}}</p>
+                <button class="deleteBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
+                        width="24px" height="24px" viewBox="0 0 512 512" id="_x30_1" version="1.1" xml:space="preserve">
+
+                        <g>
+
+                            <path
+                                d="M298.656,187.5c-10.096,0-18.281,8.185-18.281,18.281v129.188c0,10.096,8.185,18.281,18.281,18.281   s18.281-8.185,18.281-18.281V205.781C316.938,195.685,308.753,187.5,298.656,187.5z" />
+
+                            <path
+                                d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M365.688,163.125v202.312   c0,20.193-16.37,36.562-36.562,36.562h-146.25c-20.193,0-36.562-16.37-36.562-36.562V163.125   c-13.462,0-24.375-10.913-24.375-24.375s10.913-24.375,24.375-24.375h49.796c3.232,0,6.332-1.284,8.618-3.57l17.236-17.236   c2.286-2.285,5.385-3.57,8.618-3.57h50.841c3.232,0,6.332,1.284,8.618,3.57l17.236,17.236c2.286,2.286,5.385,3.57,8.618,3.57   h49.795c13.462,0,24.375,10.913,24.375,24.375S379.149,163.125,365.688,163.125z" />
+
+                            <path
+                                d="M213.344,187.5c-10.096,0-18.281,8.185-18.281,18.281v129.188c0,10.096,8.185,18.281,18.281,18.281   s18.281-8.185,18.281-18.281V205.781C231.625,195.685,223.44,187.5,213.344,187.5z" />
+
+                        </g>
+
+                    </svg>
+
+                </button>
             </div>
+        </div>
         {{/each}}
         </div>
+        <div class="w-full flex justify-end">
+
+
+
+            <button id="checkout-btn"
+                class="inline-flex items-center gap-4 bg-indigo-500 px-4 py-2 rounded-md focus:outline-none hover:bg-indigo-600 text-base text-white mt-4 md:mt-0">Checkout
+                Cart 💸
+
+            </button>
+        </div>
+
 
     </section>
 
@@ -117,20 +151,44 @@
 <script>
     const quantity = document.querySelectorAll("#quantity").value
     const price = document.querySelectorAll("#price").innerText
-    let total = document.querySelectorAll("#total").value
+
     const delivery = document.querySelectorAll("#delivery").innerText
-    
+
     const deleteBtn = document.querySelectorAll(".deleteBtn")
+    const emptyCart = document.getElementById("emptyCart")
 
     deleteBtn.forEach((btn) => {
-  
+
         btn.addEventListener("click", function () {
             console.log("click");
             const productId = this.parentElement.querySelector(".productIdDelete").innerText;
             console.log("Clicked button for product ID:", productId);
 
             // Aquí va tu código para realizar la petición fetch
-            fetch(`http://localhost:8080/api/carts/66d0e5df784573eac40391c1/products/${productId}`, {
+            fetch(`http://localhost:8080/api/carts/67162bebb3113e7703f4f1fc`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "product": productId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Success:", data);
+                    window.location.reload();
+                    alert("Deleted Product")
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
+        });
+    });
+
+
+    emptyCart.addEventListener("click", () => {
+        console.log("click empty")
+        fetch("http://localhost:8080/api/cart/67162bebb3113e7703f4f1fc", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -139,21 +197,16 @@
         })
             .then(response => response.json())
             .then(data => {
-               console.log("Success:", data);
-               window.location.reload();
-                alert("Deleted Product")
+                console.log("Success:", data);
+                window.location.reload();
+                alert("Deleted all Product to cart")
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
-        
-        });
-    });
-
-total = quantity * price.trim() + Number(delivery)
-console.log(total, quantity, price.trim(), delivery)
+    })
 
 
-        
+
 
 </script>

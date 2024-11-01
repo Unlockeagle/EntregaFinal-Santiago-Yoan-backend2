@@ -1,50 +1,63 @@
-import SessionService from "../services/session.service.js";
+import UserService from "../services/user.service.js";
 import { generateToken } from "../utils/jsonwebtoken.js";
 
-class SessionController {
+class UserController {
     async register(req, res) {
         try {
             const userData = req.body;
-            const user = await SessionService.register(userData);
+            const { email} = req.body.email
+            
+            const user = await UserService.register(userData, email);
+           
+                const token = generateToken({
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    role: user.role,
+                    email: user.email,
+                });
+                res.cookie("coderCookieToken", token, {
+                    maxAge: 3600000,
+                    httpOnly: true,
+                }).redirect("/api/session/current");
+                //res.send({ message: "Usuario registrado exitosamente", user: user, token: token });
+          
+          
+           
+        } catch (error) {
+            res.send({ message: "Error al registar usuario ene el servidor", error: error.message });
+        }
+    }
+    async login(req, res) {
+        try {
+            const { email, password } = req.body;
+
+            const user = await UserService.login(email, password);
+            if (!user) {
+                res.status(403).send({message: "Error usuario no encontrado"});
+            }
             const token = generateToken({
                 first_name: user.first_name,
                 last_name: user.last_name,
                 role: user.role,
+                email: user.email,
             });
             res.cookie("coderCookieToken", token, {
                 maxAge: 3600000,
                 httpOnly: true,
-            }).redirect("/current");
-            //res.send({ message: "Usuario registrado exitosamente", user: user, token: token });
+            }).redirect("/api/session/current");
+            //res.send({ message: "Login exitoso", user: user });
         } catch (error) {
-            res.send({ message: "Error al registar usuario", error: error.message });
+            res.status(500).send({message: "Error al hacer login en el servidor", error: error.message})
         }
     }
-    async login(req, res) {
-        const { email, password } = req.body;
-
-        const user = await SessionService.login(email, password);
-        const token = generateToken({
-            first_name: user.first_name,
-            last_name: user.last_name,
-            role: user.role,
-        });
-        res.cookie("coderCookieToken", token, {
-            maxAge: 3600000,
-            httpOnly: true,
-        }).redirect("/api/session/current");
-        //res.send({ message: "Login exitoso", user: user });
-    }
-  
 
     async current(req, res) {
-        
         if (req.user) {
             const user = req.user;
             if (user.role === "user") {
-                 res.render("profile", { user });
-            }else if(user.role === "admin"){
-                 res.render("realtimeproducts", {user})
+                res.render("profile", { user });
+            } else if (user.role === "admin") {
+                res.render("realtimeproducts", { user });
             } else {
                 res.send("No autorizado por el currrents");
             }
@@ -57,4 +70,4 @@ class SessionController {
     }
 }
 
-export default new SessionController();
+export default new UserController();
