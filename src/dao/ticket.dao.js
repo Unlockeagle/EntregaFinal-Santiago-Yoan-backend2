@@ -14,6 +14,9 @@ class TicketDao {
     async update(tid, dataTicket){
         return await TicketModel.findByIdAndUpdate(tid, dataTicket, { new: true })
     }
+    async countDocuments(){
+        return await TicketModel.countDocuments()
+    }
 }
 
 export default new TicketDao();

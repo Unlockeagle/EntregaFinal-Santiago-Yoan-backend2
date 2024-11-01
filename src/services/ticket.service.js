@@ -13,6 +13,9 @@ class TicketService{
     async updateTicket(tid, dataTicket){
         return TicketRepository.updateTicket(tid, dataTicket)
     }
+    async countDocuments(){
+        return TicketRepository.countDocuments()
+    }
 }
 
 export default new TicketService()

@@ -88,6 +88,10 @@ class CartController {
         const ticketFinal = await ticketRepository.create(ticket);
         console.log(ticketFinal);
         console.log(req.user);
+        // const cantDoc = await ticketRepository.countDocuments()
+        // console.log("cant: ");
+        // console.log(cantDoc);
+        
         
 
         res.send({ message: "Nueva orden recibida", ticket: ticketFinal });

@@ -13,6 +13,9 @@ class TicketRepository{
     async updateTicket(tid, dataTicket){
         return await TicketDao.update(tid, dataTicket)
     }
+    async countDocuments(){
+        return await TicketDao.countDocuments()
+    }
 }
 
 export default new TicketRepository()

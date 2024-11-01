@@ -2,9 +2,9 @@ import cartRepository from "../repositories/cart.repository.js";
 import ticketRepository from "../repositories/ticket.repository.js";
 
 class CartService {
-    constructor() {
-        this.newCode = 1;
-    }
+    // constructor() {
+    //     this.newCode = 1;
+    // }
 
     async createCart() {
         return await cartRepository.createCart();
@@ -75,6 +75,7 @@ class CartService {
         const cart = await cartRepository.getCartById(cid);
 
         const unprocessedProducts = [];
+        const cantDoc = await ticketRepository.countDocuments()
         let totalProducts = 0;
 
         let products = cart.products.forEach((products) => {
@@ -89,9 +90,10 @@ class CartService {
             }
         });
 
-        this.newCode++;
+        // this.newCode++;
+        cantDoc
         const ticket = {
-            code: this.newCode,
+            code: cantDoc +1 ,
             purchase_datetime: Date.now(),
             amount: totalProducts,
             purchaser: "email",
