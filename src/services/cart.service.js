@@ -1,11 +1,10 @@
 import cartRepository from "../repositories/cart.repository.js";
 import ticketRepository from "../repositories/ticket.repository.js";
+import productRepository from "../repositories/product.repository.js";
+
+import CounterModel from "../models/counter.model.js";
 
 class CartService {
-    // constructor() {
-    //     this.newCode = 1;
-    // }
-
     async createCart() {
         return await cartRepository.createCart();
     }
@@ -75,27 +74,49 @@ class CartService {
         const cart = await cartRepository.getCartById(cid);
 
         const unprocessedProducts = [];
-        const cantDoc = await ticketRepository.countDocuments()
+
         let totalProducts = 0;
-
-        let products = cart.products.forEach((products) => {
-            if (products.product.stock >= products.quantity) {
-                totalProducts += products.quantity * products.product.price;
-
-                return totalProducts;
-                //console.log("si hay stock");
+        //actualizamos el stock
+        for (const item of cart.products) {
+            if (item.product.stock >= item.quantity) {
+                await productRepository.updateProduct(item.product._id, {
+                    stock: item.product.stock - item.quantity,
+                });
+                await this.deleteProductFromCart(cid, item.product._id);
+                totalProducts += item.quantity * item.product.price;
             } else {
-                return unprocessedProducts.push(products.product._id);
-                //console.log("no hay stock");
+                unprocessedProducts.push(item.product._id);
             }
-        });
+        }
 
-        // this.newCode++;
-        cantDoc
+        // let products = cart.products.forEach(async (products) => {
+        //     if (products.product.stock >= products.quantity) {
+        //         await productRepository.updateProduct(products.product._id, {
+        //             stock: products.product.stock - products.quantity,
+        //         });
+        //         await this.deleteProductFromCart(cid, products.product._id);
+        //         totalProducts += products.quantity * products.product.price;
+        //         // Falata aqui ir sacando los productos del carrito que si tienen disponibilidad
+        //         // Y actualizar los nuevos stocks
+        //         console.log(products);
+
+        //         return totalProducts;
+        //         //console.log("si hay stock");
+        //     } else {
+        //         return unprocessedProducts.push(products.product._id);
+        //         //console.log("no hay stock");
+        //     }
+        // });
+
+        //Observamos el contador
+        const counter = await CounterModel.findOne({ title: "conuterTicket" });
+
+        const counterUpdate = await CounterModel.findOneAndUpdate({ counter: counter.counter + 1 });
+
         const ticket = {
-            code: cantDoc +1 ,
+            code: counter.counter + 1,
             purchase_datetime: Date.now(),
-            amount: totalProducts,
+            amount: parseFloat(totalProducts.toFixed(2)),
             purchaser: "email",
         };
 

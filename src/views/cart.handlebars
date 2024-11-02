@@ -9,7 +9,8 @@
 
 
                     <button id="emptyCart"
-                        class="inline-flex items-center gap-4 rounded-md focus:outline-none hover:text-red-600 text-base text-gray-500 mt-4 md:mt-0">Remove all
+                        class="inline-flex items-center gap-4 rounded-md focus:outline-none hover:text-red-600 text-base text-gray-500 mt-4 md:mt-0">Remove
+                        all
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             fill="#000000" width="24px" height="24px" viewBox="0 0 512 512" id="_x30_1" version="1.1"
                             xml:space="preserve">
@@ -36,7 +37,7 @@
         <div class="hidden lg:grid grid-cols-2 py-6">
             <div class="font-normal text-xl leading-8 text-gray-500">Product</div>
             <p class="font-normal text-xl leading-8 text-gray-500 flex items-center justify-between">
-                <span class="w-full max-w-[200px] text-center">Delivery Charge</span>
+                {{!-- <span class="w-full max-w-[200px] text-center">Delivery Charge</span> --}}
                 <span class="w-full max-w-[260px] text-center">Quantity</span>
                 <span class="w-full max-w-[200px] text-center">Total</span>
             </p>
@@ -60,18 +61,19 @@
 
                         <span class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">Price:
                             $</span>
-                        <h6 id="price" class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">
+                        <h6 id="price" value={{this.product.price}}
+                            class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">
                             {{this.product.price}}</h6>
                     </div>
                 </div>
 
             </div>
             <div class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
-                <span>$</span>
+                {{!-- <span>$</span>
                 <h6 id="delivery"
                     class="font-manrope font-bold text-2xl leading-9 text-black w-full max-w-[176px] text-center">
                     15.00 <span class="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">(Delivery
-                        Charge)</span></h6>
+                        Charge)</span></h6> --}}
                 <div class="flex items-center w-full mx-auto justify-center">
                     <button
                         class="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
@@ -101,7 +103,8 @@
                 </div>
                 <span>$</span>
                 <h6 id="total"
-                    class="text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
+                    class="total text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
+
 
                 </h6>
                 <p class="hidden productIdDelete">{{this._id}}</p>
@@ -131,13 +134,20 @@
         </div>
         <div class="w-full flex justify-end">
 
+            <div>
+                <div class="flex flex-col item-center w-full">
 
 
-            <button id="checkout-btn"
-                class="inline-flex items-center gap-4 bg-indigo-500 px-4 py-2 rounded-md focus:outline-none hover:bg-indigo-600 text-base text-white mt-4 md:mt-0">Checkout
-                Cart 💸
+                <span class="text-black font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">Total: </span>
+                <p class="text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center mb-8" id="gTotal"></p>
+                </div>
+                
+                <button id="checkout-btn"
+                    class="inline-flex items-center gap-4 bg-indigo-500 px-4 py-2 rounded-md focus:outline-none hover:bg-indigo-600 text-base text-white mt-4 md:mt-0">Checkout
+                    Cart 💸
 
-            </button>
+                </button>
+            </div>
         </div>
 
 
@@ -149,10 +159,27 @@
 </section>
 
 <script>
-    const quantity = document.querySelectorAll("#quantity").value
-    const price = document.querySelectorAll("#price").innerText
+    const quantities = document.querySelectorAll("#quantity");
+    const prices = document.querySelectorAll("#price");
+    const subtotalElements = document.querySelectorAll("#total");
+    const gTotal = document.getElementById("gTotal")
+    // Usamos map para obtener un array con cada subtotal (cantidad * precio)
+    let subtotals = Array.from(quantities).map((quantityElement, index) => {
+        const quantity = parseFloat(quantityElement.value);
+        const price = parseFloat(prices[index].innerText);
+        return quantity * price;
+    });
 
-    const delivery = document.querySelectorAll("#delivery").innerText
+    gTotal.innerText = subtotals.reduce((acc, subtotal) => acc + subtotal, 0)
+
+
+    // Aseguramos que tenemos la misma cantidad de subtotales y elementos donde mostrarlos
+    subtotalElements.forEach((el, index) => {
+        if (index < subtotals.length) {
+            el.innerText = subtotals[index].toFixed(2); // Mostramos cada subtotal en su respectivo elemento
+        }
+    });
+
 
     const deleteBtn = document.querySelectorAll(".deleteBtn")
     const emptyCart = document.getElementById("emptyCart")

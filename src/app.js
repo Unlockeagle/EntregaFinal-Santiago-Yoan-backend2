@@ -27,6 +27,7 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './src/views');
 
+
 // Rutas
 app.use("/", ProductRouter);
 app.use("/", CartRouter);

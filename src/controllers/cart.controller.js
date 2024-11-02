@@ -1,6 +1,7 @@
 import ticketRepository from "../repositories/ticket.repository.js";
 import cartService from "../services/cart.service.js";
 
+
 class CartController {
     async createCart(req, res) {
         try {
@@ -82,19 +83,18 @@ class CartController {
     }
     async finalizePurchase(req, res) {
         const cid = req.params.cid;
+        const { email } = req.user
 
         const ticket = await cartService.finalizePurchase(cid);
-        ticket.purchaser = req.user.email
+        ticket.purchaser = email
         const ticketFinal = await ticketRepository.create(ticket);
         console.log(ticketFinal);
-        console.log(req.user);
-        // const cantDoc = await ticketRepository.countDocuments()
-        // console.log("cant: ");
-        // console.log(cantDoc);
+
+
         
         
 
-        res.send({ message: "Nueva orden recibida", ticket: ticketFinal });
+        res.send({ message: "Nueva orden recibida", ticket: ticketFinal});
     }
 }
 
