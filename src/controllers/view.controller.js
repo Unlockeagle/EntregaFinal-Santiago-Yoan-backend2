@@ -56,6 +56,18 @@ class ViewController {
             res.status(401).send({ message: "Error al obtener carrito en el servidor", error: error.message });
         }
     }
+    async current(req, res) {
+        if (req.user) {
+            const user = req.user;
+            if (user.role === "user") {
+                res.render("profile", { user });
+            } else if (user.role === "admin") {
+                res.render("realtimeproducts", { user });
+            } else {
+                res.send("No autorizado por el currrents");
+            }
+        }
+    }
 }
 
 export default new ViewController();

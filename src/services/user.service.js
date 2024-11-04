@@ -1,11 +1,15 @@
 import { isValidPasswordDto, userDto } from "../dto/user.dto.js";
+import cartRepository from "../repositories/cart.repository.js";
 import UserRepository from "../repositories/user.repository.js";
 
 class SessionService {
     async register(dataUser, email) {
         const existeUser = await UserRepository.findOne(email);
         if(!existeUser){
-            const user = await UserRepository.createUser(userDto(dataUser));
+            const cart = await cartRepository.createCart()
+            const cartId = await cart._id
+            const user = await UserRepository.createUser(userDto(dataUser, cartId));
+            
             return user;
 
         }else {

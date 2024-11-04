@@ -1,11 +1,11 @@
 import { createHash, isValidPassword} from "../utils/bcrypt.js";
 
-export const userDto = (dataUser) =>  {
+export const userDto = (dataUser, cartId) =>  {
 
-    const {first_name, last_name, age, email, password, cartId, imgUrl} = dataUser
+    const {first_name, last_name, age, email, password, imgUrl} = dataUser
 
     const newUser = {
-        first_name, last_name, age, email, password: createHash(password), cartId, imgUrl
+        first_name, last_name, age, email, password: createHash(password), cartId: cartId, imgUrl
     }
     return newUser
 

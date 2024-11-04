@@ -87,12 +87,7 @@ class CartController {
 
         const ticket = await cartService.finalizePurchase(cid);
         ticket.purchaser = email
-        const ticketFinal = await ticketRepository.create(ticket);
-        console.log(ticketFinal);
-
-
-        
-        
+        const ticketFinal = await ticketRepository.create(ticket);    
 
         res.send({ message: "Nueva orden recibida", ticket: ticketFinal});
     }

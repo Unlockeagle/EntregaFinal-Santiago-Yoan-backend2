@@ -49,16 +49,3 @@ export function paginateOptionsDto(limit, page, sort) {
 }
 
 
-
-
-
-// const prevLink = arrayProducts.hasPrevPage
-        //     // ? `/api/products?page=${arrayProducts.prevPage}&limit=${limit}${category ? `&category=${category}` : ""}${
-        //     //       sort ? `&sort=${sort}` : ""
-        //     //   }`
-        //     // : null;
-        // const nextLink = arrayProducts.hasNextPage
-        //     // ? `/api/products?page=${arrayProducts.nextPage}&limit=${limit}${category ? `&category=${category}` : ""}${
-        //     //       sort ? `&sort=${sort}` : ""
-        //     //   }`
-        //     // : null;
