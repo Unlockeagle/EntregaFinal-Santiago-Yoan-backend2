@@ -14,6 +14,7 @@ class UserController {
                 last_name: user.last_name,
                 role: user.role,
                 email: user.email,
+                cartId: user.cartId
             });
             res.cookie("coderCookieToken", token, {
                 maxAge: 3600000,
@@ -37,6 +38,7 @@ class UserController {
                 last_name: user.last_name,
                 role: user.role,
                 email: user.email,
+                cartId: user.cartId
             });
             res.cookie("coderCookieToken", token, {
                 maxAge: 3600000,
@@ -54,7 +56,7 @@ class UserController {
             if (user.role === "user") {
                 res.send({ message: "successful login - type user", user: user });
             } else if (user.role === "admin") {
-                res.render({ message: "successful login - type admin", user: user });
+                res.send({ message: "successful login - type admin", user: user });
             } else {
                 res.send("No autorizado por el currrents");
             }

@@ -4,13 +4,15 @@ import ProductService from "../services/product.service.js";
 class ViewController {
     async register(req, res) {
         if (req.user) {
-            console.log(req.user);
+            
             return res.redirect("/profile");
         }
         res.render("register");
     }
     async login(req, res) {
         if (req.user) {
+        console.log(req.user);
+        
             return res.redirect("/profile");
         }
         res.render("login");
@@ -48,6 +50,8 @@ class ViewController {
     }
     async getCartById(req, res) {
         try {
+            console.log(req.user.cartId);
+            
             const cid = req.params.cid;
             const cart = await CartService.findCartById(cid);
 
