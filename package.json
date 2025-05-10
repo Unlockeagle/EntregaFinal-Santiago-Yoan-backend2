@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "start": "node app.js"
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "yoan_santiago",
@@ -14,6 +14,9 @@
   "devDependencies": {
     "nodemon": "^3.1.7"
   },
+  "engines": {
+  "node": "18.x"
+},
   "dependencies": {
     "@types/express": "5.0.0",
     "bcrypt": "5.1.1",

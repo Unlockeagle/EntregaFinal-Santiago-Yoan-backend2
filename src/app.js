@@ -11,7 +11,7 @@ import initializePassport from "./config/passportJwt.config.js";
 import { engine } from "express-handlebars";
 
 const app = express();
-const PORT = configObject.puerto || 8080;
+const PORT = process.env.PORT || configObject.puerto || 8080;
 
 // Midleware
 app.use(express.json());
